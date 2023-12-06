@@ -1,0 +1,60 @@
+import time
+
+class ParkingLot:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.available_spaces = capacity
+
+    def occupy_space(self):
+        if self.available_spaces > 0:
+            self.available_spaces -= 1
+            return True
+        else:
+            print("Parking lot is full. Cannot park.")
+            return False
+
+    def free_space(self):
+        if self.available_spaces < self.capacity:
+            self.available_spaces += 1
+            return True
+        else:
+            print("Parking lot is already empty.")
+            return False
+
+class Car:
+    def __init__(self, plate_number):
+        self.plate_number = plate_number
+
+class AutomatedParkingSystem:
+    def __init__(self, parking_lot):
+        self.parking_lot = parking_lot
+
+    def park_car(self, car):
+        if self.parking_lot.occupy_space():
+            print(f"Car with plate number {car.plate_number} parked successfully.")
+            return True
+        else:
+            print(f"Failed to park car with plate number {car.plate_number}. Parking lot is full.")
+            return False
+
+    def leave_parking_lot(self, car):
+        if self.parking_lot.free_space():
+            print(f"Car with plate number {car.plate_number} left the parking lot.")
+            return True
+        else:
+            print(f"Failed to leave the parking lot. Parking lot is already empty.")
+            return False
+
+# Example Usage
+parking_lot = ParkingLot(capacity=10)
+parking_system = AutomatedParkingSystem(parking_lot)
+
+car1 = Car(plate_number="ABC123")
+car2 = Car(plate_number="XYZ789")
+
+parking_system.park_car(car1)
+time.sleep(1)  # Simulate some time passing
+parking_system.park_car(car2)
+
+time.sleep(1)  # Simulate some time passing
+parking_system.leave_parking_lot(car1)
